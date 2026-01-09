@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dealStatusEl = document.getElementById("deal-status");
   const dealBuyerEl = document.getElementById("deal-buyer");
   const dealAccountEl = document.getElementById("deal-account");
+  const dealAmountInitialEl = document.getElementById("deal-amount-initial");
   const dealAmountEl = document.getElementById("deal-amount");
   const dealNoteEl = document.getElementById("deal-note");
 
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dealStatusEl.textContent = "–";
       dealBuyerEl.textContent = "–";
       dealAccountEl.textContent = "–";
+      dealAmountInitialEl.textContent = "–";
       dealAmountEl.textContent = "–";
       dealNoteEl.textContent = "Create a deal to begin the demo flow.";
       return;
@@ -48,10 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
     dealIdEl.textContent = `Deal #${currentDeal.id}`;
     dealBuyerEl.textContent = currentDeal.buyer;
     dealAccountEl.textContent = `${currentDeal.accountType} • demo account`;
-    dealAmountEl.textContent = `$${currentDeal.price}`;
+    dealAmountInitialEl.textContent = currentDeal.priceInitial
+      ? `$${currentDeal.priceInitial}`
+      : "–";
+    dealAmountEl.textContent = currentDeal.priceAgreed
+      ? `$${currentDeal.priceAgreed}`
+      : "–";
     dealStatusEl.textContent = currentDeal.status;
 
-    // Set note based on status
     switch (currentDeal.status) {
       case "Awaiting Payment":
         dealNoteEl.textContent =
@@ -66,7 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
           "Buyer: inspect the account (2 hours in real app), then confirm OK or raise dispute.";
         break;
       case "Completed":
-        dealNoteEl.textContent = "Deal completed – funds released to seller (demo).";
+        dealNoteEl.textContent =
+          "Deal completed – funds released to seller (demo).";
         break;
       case "Disputed":
         dealNoteEl.textContent =
@@ -82,13 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const formData = new FormData(createDealForm);
       const accountType = formData.get("accountType");
-      const price = formData.get("price");
+      const priceInitial = formData.get("priceInitial");
+      const priceAgreed = formData.get("priceAgreed");
       const buyer = formData.get("buyer");
 
       currentDeal = {
         id: Math.floor(Math.random() * 90000) + 10000,
         accountType,
-        price,
+        priceInitial,
+        priceAgreed,
         buyer,
         status: "Awaiting Payment",
       };
@@ -104,7 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!currentDeal) return alert("Create a deal first.");
       if (currentDeal.status !== "Awaiting Payment")
         return alert("Payment can only be confirmed once.");
-
       currentDeal.status = "Payment Confirmed";
       updateDealUI();
     });
@@ -115,7 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!currentDeal) return alert("Create a deal first.");
       if (currentDeal.status !== "Payment Confirmed")
         return alert("Account should be sent after payment is confirmed.");
-
       currentDeal.status = "Account Sent";
       updateDealUI();
     });
@@ -126,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!currentDeal) return alert("Create a deal first.");
       if (currentDeal.status !== "Account Sent")
         return alert("Buyer can confirm only after account is sent.");
-
       currentDeal.status = "Completed";
       updateDealUI();
     });
@@ -137,9 +143,33 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!currentDeal) return alert("Create a deal first.");
       if (currentDeal.status !== "Account Sent")
         return alert("Disputes can be raised after account is sent.");
-
       currentDeal.status = "Disputed";
       updateDealUI();
+    });
+  }
+
+  // Simple negotiation chat (demo only)
+  const chatForm = document.getElementById("chat-form");
+  const chatMessages = document.getElementById("chat-messages");
+  const chatSender = document.getElementById("chat-sender");
+  const chatText = document.getElementById("chat-text");
+
+  if (chatForm && chatMessages && chatSender && chatText) {
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const sender = chatSender.value;
+      const text = chatText.value.trim();
+      if (!text) return;
+
+      const div = document.createElement("div");
+      div.classList.add("chat-message");
+      if (sender === "Buyer") div.classList.add("chat-buyer");
+      if (sender === "Seller") div.classList.add("chat-seller");
+      div.textContent = `${sender}: ${text}`;
+      chatMessages.appendChild(div);
+
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      chatText.value = "";
     });
   }
 

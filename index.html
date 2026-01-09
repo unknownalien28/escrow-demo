@@ -182,7 +182,7 @@
         </form>
       </div>
 
-    </section>    <!-- Create Escrow Deal -->
+        <!-- Create Escrow Deal -->
     <section class="section" id="create-deal">
       <div class="container">
         <h2 class="section-title">Create Escrow Deal (Demo)</h2>
@@ -191,6 +191,7 @@
         </p>
 
         <div class="create-grid">
+          <!-- LEFT: Create deal form -->
           <form class="create-card" id="create-deal-form">
             <label>
               <span>Account type</span>
@@ -202,9 +203,16 @@
               </select>
             </label>
 
+            <!-- Seller initial listing price -->
             <label>
-              <span>Price (USD)</span>
-              <input type="number" name="price" min="1" required />
+              <span>Seller initial price (USD)</span>
+              <input type="number" name="priceInitial" min="1" required />
+            </label>
+
+            <!-- Final agreed price after negotiation -->
+            <label>
+              <span>Final agreed price (USD)</span>
+              <input type="number" name="priceAgreed" min="1" required />
             </label>
 
             <label>
@@ -222,12 +230,14 @@
             </button>
           </form>
 
+          <!-- RIGHT: Deal preview + negotiation -->
           <div class="deal-preview">
             <h3>Latest Deal (Demo)</h3>
             <p class="section-subtitle">
               This is a simulated deal state machine running in your browser.
             </p>
 
+            <!-- Deal details card -->
             <div class="deal-card" id="deal-details-card">
               <div class="deal-header">
                 <span class="deal-id" id="deal-id">No deal created yet</span>
@@ -246,7 +256,11 @@
                 <strong id="deal-account">–</strong>
               </div>
               <div class="deal-row">
-                <span>Amount</span>
+                <span>Seller initial price</span>
+                <strong id="deal-amount-initial">–</strong>
+              </div>
+              <div class="deal-row">
+                <span>Final agreed price</span>
                 <strong id="deal-amount">–</strong>
               </div>
 
@@ -268,6 +282,29 @@
               <p class="deal-status-note" id="deal-note">
                 Create a deal to begin the demo flow.
               </p>
+            </div>
+
+            <!-- Negotiation chat box -->
+            <div class="chat-box">
+              <h4>Negotiation (Demo Chat)</h4>
+              <div class="chat-messages" id="chat-messages">
+                <div class="chat-message chat-system">
+                  This is a demo chat. In the real app, buyer and seller will negotiate here before confirming the final price.
+                </div>
+              </div>
+              <form class="chat-input-row" id="chat-form">
+                <select name="sender" id="chat-sender">
+                  <option value="Buyer">Buyer</option>
+                  <option value="Seller">Seller</option>
+                </select>
+                <input
+                  type="text"
+                  id="chat-text"
+                  placeholder="Type a message (demo only, not stored on server)"
+                  required
+                />
+                <button type="submit" class="btn btn-primary">Send</button>
+              </form>
             </div>
           </div>
         </div>
