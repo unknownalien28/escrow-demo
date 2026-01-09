@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Buttons/links with data-screen-jump (from landing, hero, auth links)
+  // Buttons/links with data-screen-jump (from hero, auth links)
   document.querySelectorAll("[data-screen-jump]").forEach((el) => {
     el.addEventListener("click", (e) => {
       const target = el.getAttribute("data-screen-jump");
@@ -65,11 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Landing "Get started" button
+  // Landing "Get started" button -> Create account + scroll into app
   const landingGetStarted = document.getElementById("landing-get-started");
   if (landingGetStarted) {
     landingGetStarted.addEventListener("click", () => {
-      showScreen("login");
+      showScreen("register");
+      const appMain = document.getElementById("app-main");
+      if (appMain) {
+        appMain.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
   }
 
@@ -87,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       alert("Demo login: in the real app, we will authenticate you here.");
       showScreen("create-deal");
-    });
+  });
   }
 
   if (registerForm) {

@@ -195,9 +195,12 @@ body {
 
 /* Landing (main animated hero) */
 .landing {
-  padding: 4.5rem 0 3.5rem;
+  min-height: calc(100vh - 64px);
+  padding: 4rem 0 2.5rem;
   border-bottom: 1px solid rgba(148, 163, 184, 0.25);
   background: radial-gradient(circle at top, #1f2937 0, #020617 45%, #000 100%);
+  display: flex;
+  align-items: center;
 }
 
 .landing-inner {
@@ -549,9 +552,12 @@ body {
   color: var(--muted);
 }
 
-/* Auth + dashboard */
+/* Auth + dashboard / App zone */
 .app-main {
-  margin-top: 1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+  background: radial-gradient(circle at top, #020617 0, #020617 40%, #000 100%);
 }
 
 .auth-section {
