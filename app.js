@@ -1,6 +1,56 @@
 console.log("Escrow demo app loaded");
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Mobile header menu
+  const hamburgerBtn = document.getElementById("hamburger-btn");
+  const mobileNav = document.getElementById("mobile-nav");
+
+  if (hamburgerBtn && mobileNav) {
+    hamburgerBtn.addEventListener("click", () => {
+      const isOpen = mobileNav.style.display === "flex";
+      mobileNav.style.display = isOpen ? "none" : "flex";
+    });
+
+    // Close menu when a link is clicked
+    mobileNav.addEventListener("click", (e) => {
+      if (e.target.tagName === "A") {
+        mobileNav.style.display = "none";
+      }
+    });
+  }
+
+  // Simple SPA-style navigation between screens
+  const navLinks = document.querySelectorAll(".app-nav-link");
+  const screens = document.querySelectorAll(".app-screen");
+
+  function showScreen(screenId) {
+    screens.forEach((s) => {
+      if (s.id === screenId) {
+        s.classList.add("active");
+      } else {
+        s.classList.remove("active");
+      }
+    });
+
+    navLinks.forEach((btn) => {
+      if (btn.dataset.screen === screenId) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  navLinks.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.screen;
+      if (target) showScreen(target);
+    });
+  });
+
+  // Default screen when page loads
+  showScreen("create-deal");
+
   const loginForm = document.getElementById("login-form");
   const registerForm = document.getElementById("register-form");
   const createDealForm = document.getElementById("create-deal-form");
@@ -141,6 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       updateDealUI();
       alert("Demo: deal created locally. No real payment is happening.");
+      showScreen("create-deal");
     });
   }
 
@@ -182,6 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return alert("Disputes can be raised after account is sent.");
       currentDeal.status = "Disputed";
       updateDealUI();
+      showScreen("admin-panel");
     });
   }
 
