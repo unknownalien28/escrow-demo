@@ -322,6 +322,71 @@ body {
   font-size: 0.9rem;
 }
 
+/* Create deal + preview */
+.create-grid {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.create-card {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  display: grid;
+  gap: 0.9rem;
+}
+
+.create-card label {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.create-card input,
+.create-card select {
+  padding: 0.6rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.create-card input:focus,
+.create-card select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.5);
+}
+
+.deal-preview h3 {
+  margin-top: 0;
+}
+
+.deal-actions {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.deal-status-note {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .create-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+
 /* Footer */
 .site-footer {
   padding: 1.5rem 0 2rem;
@@ -379,5 +444,37 @@ body {
     align-items: stretch;
   }
 
+  .site-footer {
+  padding: 1.5rem 0 2rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+/* Mobile footer layout */
+@media (max-width: 640px) {
   .footer-inner {
-    flex-direc
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

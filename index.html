@@ -181,6 +181,97 @@
           </p>
         </form>
       </div>
+
+    </section>    <!-- Create Escrow Deal -->
+    <section class="section" id="create-deal">
+      <div class="container">
+        <h2 class="section-title">Create Escrow Deal (Demo)</h2>
+        <p class="section-subtitle">
+          Seller starts the deal. In this demo we only simulate the flow, no real payments yet.
+        </p>
+
+        <div class="create-grid">
+          <form class="create-card" id="create-deal-form">
+            <label>
+              <span>Account type</span>
+              <select name="accountType" required>
+                <option value="Instagram">Instagram</option>
+                <option value="X">X (Twitter)</option>
+                <option value="TikTok">TikTok</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Price (USD)</span>
+              <input type="number" name="price" min="1" required />
+            </label>
+
+            <label>
+              <span>Buyer username or email</span>
+              <input type="text" name="buyer" required />
+            </label>
+
+            <label>
+              <span>Inspection window</span>
+              <input type="text" value="2 hours (fixed)" disabled />
+            </label>
+
+            <button type="submit" class="btn btn-primary full-width">
+              Create Deal (Demo)
+            </button>
+          </form>
+
+          <div class="deal-preview">
+            <h3>Latest Deal (Demo)</h3>
+            <p class="section-subtitle">
+              This is a simulated deal state machine running in your browser.
+            </p>
+
+            <div class="deal-card" id="deal-details-card">
+              <div class="deal-header">
+                <span class="deal-id" id="deal-id">No deal created yet</span>
+                <span class="status status-awaiting" id="deal-status">–</span>
+              </div>
+              <div class="deal-row">
+                <span>Buyer</span>
+                <strong id="deal-buyer">–</strong>
+              </div>
+              <div class="deal-row">
+                <span>Seller (you)</span>
+                <strong id="deal-seller">Current user</strong>
+              </div>
+              <div class="deal-row">
+                <span>Account</span>
+                <strong id="deal-account">–</strong>
+              </div>
+              <div class="deal-row">
+                <span>Amount</span>
+                <strong id="deal-amount">–</strong>
+              </div>
+
+              <div class="deal-actions">
+                <button class="btn btn-outline full-width" id="btn-confirm-payment">
+                  Buyer: Confirm payment sent
+                </button>
+                <button class="btn btn-outline full-width" id="btn-send-account">
+                  Seller: Send account details
+                </button>
+                <button class="btn btn-outline full-width" id="btn-confirm-ok">
+                  Buyer: Confirm account OK
+                </button>
+                <button class="btn btn-ghost full-width" id="btn-dispute">
+                  Buyer: Raise dispute
+                </button>
+              </div>
+
+              <p class="deal-status-note" id="deal-note">
+                Create a deal to begin the demo flow.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Simple Dashboard (placeholder) -->
