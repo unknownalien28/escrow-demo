@@ -546,3 +546,26 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Admin demo box */
+.admin-demo-box {
+  margin-top: 1rem;
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(248, 250, 252, 0.08);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.admin-demo-status {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.admin-actions {
+  display: grid;
+  gap: 0.4rem;
+}

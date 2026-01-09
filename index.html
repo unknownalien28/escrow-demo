@@ -310,6 +310,7 @@
         </div>
       </div>
     </section>
+    
 
     <!-- Simple Dashboard (placeholder) -->
     <section class="section section-alt" id="dashboard">
@@ -337,6 +338,32 @@
     </section>
 
   </main>
+  
+            <!-- Admin panel (demo) -->
+            <div class="admin-demo-box" id="admin-demo">
+              <h4>Admin Panel (Demo)</h4>
+              <p class="section-subtitle">
+                In the real app the escrow operator can force release or refund after reviewing the dispute.
+              </p>
+
+              <div class="admin-demo-status">
+                <span>Current status:</span>
+                <strong id="admin-deal-status">No deal</strong>
+              </div>
+
+              <div class="admin-actions">
+                <button class="btn btn-outline full-width" id="admin-release">
+                  Admin: Release funds to seller
+                </button>
+                <button class="btn btn-outline full-width" id="admin-refund">
+                  Admin: Refund buyer
+                </button>
+              </div>
+
+              <p class="deal-status-note" id="admin-note">
+                Admin actions are demo only. In production, this would be tied to real payments and evidence.
+              </p>
+            </div>
 
   <!-- Footer -->
   <footer class="site-footer" id="terms">

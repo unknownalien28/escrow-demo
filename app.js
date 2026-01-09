@@ -35,8 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnConfirmOk = document.getElementById("btn-confirm-ok");
   const btnDispute = document.getElementById("btn-dispute");
 
+  // Admin demo elements
+  const adminDealStatusEl = document.getElementById("admin-deal-status");
+  const adminNoteEl = document.getElementById("admin-note");
+  const adminReleaseBtn = document.getElementById("admin-release");
+  const adminRefundBtn = document.getElementById("admin-refund");
+
   function updateDealUI() {
     if (!currentDeal) {
+      // User view
       dealIdEl.textContent = "No deal created yet";
       dealStatusEl.textContent = "–";
       dealBuyerEl.textContent = "–";
@@ -44,9 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
       dealAmountInitialEl.textContent = "–";
       dealAmountEl.textContent = "–";
       dealNoteEl.textContent = "Create a deal to begin the demo flow.";
+
+      // Admin view
+      if (adminDealStatusEl && adminNoteEl) {
+        adminDealStatusEl.textContent = "No deal";
+        adminNoteEl.textContent =
+          "Create a deal and progress it to see admin options.";
+      }
       return;
     }
 
+    // User view
     dealIdEl.textContent = `Deal #${currentDeal.id}`;
     dealBuyerEl.textContent = currentDeal.buyer;
     dealAccountEl.textContent = `${currentDeal.accountType} • demo account`;
@@ -79,8 +94,30 @@ document.addEventListener("DOMContentLoaded", () => {
         dealNoteEl.textContent =
           "Deal is in dispute – in the real app, admin would review evidence.";
         break;
+      case "Refunded (demo)":
+        dealNoteEl.textContent =
+          "Deal refunded to buyer (demo – no real money moved).";
+        break;
       default:
         dealNoteEl.textContent = "";
+    }
+
+    // Admin view
+    if (adminDealStatusEl && adminNoteEl) {
+      adminDealStatusEl.textContent = currentDeal.status;
+
+      if (currentDeal.status === "Disputed") {
+        adminNoteEl.textContent =
+          "Deal is disputed. Admin can review evidence and choose to release or refund.";
+      } else if (currentDeal.status === "Completed") {
+        adminNoteEl.textContent = "Admin: deal already completed.";
+      } else if (currentDeal.status === "Refunded (demo)") {
+        adminNoteEl.textContent =
+          "Admin: buyer has been refunded in this demo flow.";
+      } else {
+        adminNoteEl.textContent =
+          "Admin actions are demo only. In production, this would be tied to real payments and evidence.";
+      }
     }
   }
 
@@ -148,11 +185,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Simple negotiation chat (demo only)
+  // Admin actions (demo)
+  if (adminReleaseBtn) {
+    adminReleaseBtn.addEventListener("click", () => {
+      if (!currentDeal) return alert("No deal to manage.");
+      if (
+        currentDeal.status !== "Disputed" &&
+        currentDeal.status !== "Account Sent"
+      )
+        return alert("Admin typically acts on disputed or pending deals.");
+      currentDeal.status = "Completed";
+      updateDealUI();
+      alert("Demo: admin chose to release funds to seller.");
+    });
+  }
+
+  if (adminRefundBtn) {
+    adminRefundBtn.addEventListener("click", () => {
+      if (!currentDeal) return alert("No deal to manage.");
+      if (
+        currentDeal.status !== "Disputed" &&
+        currentDeal.status !== "Account Sent"
+      )
+        return alert("Admin typically acts on disputed or pending deals.");
+      currentDeal.status = "Refunded (demo)";
+      updateDealUI();
+      alert("Demo: admin chose to refund buyer.");
+    });
+  }
+
+  // Simple negotiation chat (demo only) + click-to-use price
   const chatForm = document.getElementById("chat-form");
   const chatMessages = document.getElementById("chat-messages");
   const chatSender = document.getElementById("chat-sender");
   const chatText = document.getElementById("chat-text");
+  const agreedPriceInput = document.querySelector('input[name="priceAgreed"]');
 
   if (chatForm && chatMessages && chatSender && chatText) {
     chatForm.addEventListener("submit", (e) => {
@@ -170,6 +237,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       chatMessages.scrollTop = chatMessages.scrollHeight;
       chatText.value = "";
+    });
+
+    // Click a chat message to use its number as agreed price
+    chatMessages.addEventListener("click", (e) => {
+      const msg = e.target.closest(".chat-message");
+      if (!msg || !agreedPriceInput) return;
+
+      const text = msg.textContent || "";
+      const match = text.match(/(\d+(\.\d+)?)/);
+      if (!match) return;
+
+      const value = match[1];
+      agreedPriceInput.value = value;
+      alert(
+        `Demo: set final agreed price to ${value} based on this message.`
+      );
     });
   }
 
