@@ -1,4 +1,4 @@
-console.log("Escrow demo app loaded");
+console.log("Alien Safe Escrow demo app loaded");
 
 document.addEventListener("DOMContentLoaded", () => {
   // Mobile header menu
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Simple SPA-style navigation between screens
+  // Simple SPA-style navigation between app screens
   const navLinks = document.querySelectorAll(".app-nav-link");
   const screens = document.querySelectorAll(".app-screen");
 
@@ -39,6 +39,12 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.classList.remove("active");
       }
     });
+
+    // Scroll to app section when changing screens
+    const appMain = document.getElementById("app-main");
+    if (appMain) {
+      appMain.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
   navLinks.forEach((btn) => {
@@ -48,18 +54,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Buttons/links with data-screen-jump (from landing, hero, auth links)
+  document.querySelectorAll("[data-screen-jump]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      const target = el.getAttribute("data-screen-jump");
+      if (target) {
+        e.preventDefault();
+        showScreen(target);
+      }
+    });
+  });
+
+  // Landing "Get started" button
+  const landingGetStarted = document.getElementById("landing-get-started");
+  if (landingGetStarted) {
+    landingGetStarted.addEventListener("click", () => {
+      showScreen("login");
+    });
+  }
+
   // Default screen when page loads
   showScreen("create-deal");
 
   const loginForm = document.getElementById("login-form");
   const registerForm = document.getElementById("register-form");
   const createDealForm = document.getElementById("create-deal-form");
+  const loginGuestBtn = document.getElementById("login-guest");
 
   // Demo login/register
   if (loginForm) {
     loginForm.addEventListener("submit", (e) => {
       e.preventDefault();
       alert("Demo login: in the real app, we will authenticate you here.");
+      showScreen("create-deal");
     });
   }
 
@@ -67,6 +94,14 @@ document.addEventListener("DOMContentLoaded", () => {
     registerForm.addEventListener("submit", (e) => {
       e.preventDefault();
       alert("Demo register: in the real app, we will create your account here.");
+      showScreen("create-deal");
+    });
+  }
+
+  if (loginGuestBtn) {
+    loginGuestBtn.addEventListener("click", () => {
+      alert("Demo: continuing as guest.");
+      showScreen("create-deal");
     });
   }
 
@@ -94,13 +129,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateDealUI() {
     if (!currentDeal) {
       // User view
-      dealIdEl.textContent = "No deal created yet";
-      dealStatusEl.textContent = "–";
-      dealBuyerEl.textContent = "–";
-      dealAccountEl.textContent = "–";
-      dealAmountInitialEl.textContent = "–";
-      dealAmountEl.textContent = "–";
-      dealNoteEl.textContent = "Create a deal to begin the demo flow.";
+      if (dealIdEl) dealIdEl.textContent = "No deal created yet";
+      if (dealStatusEl) dealStatusEl.textContent = "–";
+      if (dealBuyerEl) dealBuyerEl.textContent = "–";
+      if (dealAccountEl) dealAccountEl.textContent = "–";
+      if (dealAmountInitialEl) dealAmountInitialEl.textContent = "–";
+      if (dealAmountEl) dealAmountEl.textContent = "–";
+      if (dealNoteEl)
+        dealNoteEl.textContent = "Create a deal to begin the demo flow.";
 
       // Admin view
       if (adminDealStatusEl && adminNoteEl) {
@@ -112,44 +148,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // User view
-    dealIdEl.textContent = `Deal #${currentDeal.id}`;
-    dealBuyerEl.textContent = currentDeal.buyer;
-    dealAccountEl.textContent = `${currentDeal.accountType} • demo account`;
-    dealAmountInitialEl.textContent = currentDeal.priceInitial
-      ? `$${currentDeal.priceInitial}`
-      : "–";
-    dealAmountEl.textContent = currentDeal.priceAgreed
-      ? `$${currentDeal.priceAgreed}`
-      : "–";
-    dealStatusEl.textContent = currentDeal.status;
+    if (dealIdEl) dealIdEl.textContent = `Deal #${currentDeal.id}`;
+    if (dealBuyerEl) dealBuyerEl.textContent = currentDeal.buyer;
+    if (dealAccountEl)
+      dealAccountEl.textContent = `${currentDeal.accountType} • demo account`;
+    if (dealAmountInitialEl)
+      dealAmountInitialEl.textContent = currentDeal.priceInitial
+        ? `$${currentDeal.priceInitial}`
+        : "–";
+    if (dealAmountEl)
+      dealAmountEl.textContent = currentDeal.priceAgreed
+        ? `$${currentDeal.priceAgreed}`
+        : "–";
+    if (dealStatusEl) dealStatusEl.textContent = currentDeal.status;
 
-    switch (currentDeal.status) {
-      case "Awaiting Payment":
-        dealNoteEl.textContent =
-          "Buyer: confirm payment sent once you have paid into escrow.";
-        break;
-      case "Payment Confirmed":
-        dealNoteEl.textContent =
-          "Seller: send the account details to the buyer.";
-        break;
-      case "Account Sent":
-        dealNoteEl.textContent =
-          "Buyer: inspect the account (2 hours in real app), then confirm OK or raise dispute.";
-        break;
-      case "Completed":
-        dealNoteEl.textContent =
-          "Deal completed – funds released to seller (demo).";
-        break;
-      case "Disputed":
-        dealNoteEl.textContent =
-          "Deal is in dispute – in the real app, admin would review evidence.";
-        break;
-      case "Refunded (demo)":
-        dealNoteEl.textContent =
-          "Deal refunded to buyer (demo – no real money moved).";
-        break;
-      default:
-        dealNoteEl.textContent = "";
+    if (dealNoteEl) {
+      switch (currentDeal.status) {
+        case "Awaiting Payment":
+          dealNoteEl.textContent =
+            "Buyer: confirm payment sent once you have paid into escrow.";
+          break;
+        case "Payment Confirmed":
+          dealNoteEl.textContent =
+            "Seller: send the account details to the buyer.";
+          break;
+        case "Account Sent":
+          dealNoteEl.textContent =
+            "Buyer: inspect the account (2 hours in real app), then confirm OK or raise dispute.";
+          break;
+        case "Completed":
+          dealNoteEl.textContent =
+            "Deal completed – funds released to seller (demo).";
+          break;
+        case "Disputed":
+          dealNoteEl.textContent =
+            "Deal is in dispute – in the real app, admin would review evidence.";
+          break;
+        case "Refunded (demo)":
+          dealNoteEl.textContent =
+            "Deal refunded to buyer (demo – no real money moved).";
+          break;
+        default:
+          dealNoteEl.textContent = "";
+      }
     }
 
     // Admin view
@@ -302,9 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const value = match[1];
       agreedPriceInput.value = value;
-      alert(
-        `Demo: set final agreed price to ${value} based on this message.`
-      );
+      alert(`Demo: set final agreed price to ${value} based on this message.`);
     });
   }
 

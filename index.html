@@ -2,36 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Escrow – Safe Social Media Deals</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+  <title>Alien Safe Escrow – Social Media Deals</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
-      <div class="logo">Escrow<span>Safe</span></div>
+      <div class="logo">Alien<span>Safe Escrow</span></div>
+
+      <!-- Desktop nav -->
       <nav class="nav-links">
+        <a href="#landing">Home</a>
         <a href="#how-it-works">How it works</a>
         <a href="#rules">Rules</a>
         <a href="#login" class="link-light">Login</a>
         <a href="#register" class="btn btn-outline">Register</a>
-        <a href="#start" class="btn btn-primary">Start Escrow</a>
       </nav>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+
+    <!-- Mobile menu -->
+    <nav class="mobile-nav" id="mobile-nav">
+      <a href="#landing">Home</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#rules">Rules</a>
+      <a href="#login">Login</a>
+      <a href="#register">Register</a>
+    </nav>
   </header>
 
-  <!-- Hero -->
+  <!-- Landing (Animated hero, one CTA) -->
+  <section class="landing" id="landing">
+    <div class="container landing-inner">
+      <div class="landing-text">
+        <p class="landing-tagline">Social media escrow for aliens & humans</p>
+        <h1 class="landing-title">
+          <span class="landing-title-main">Alien Safe Escrow</span>
+        </h1>
+        <p class="landing-subtitle">
+          Lock funds in neutral escrow, verify the account, then release. One simple place to run safe social media deals.
+        </p>
+        <button class="btn btn-primary landing-cta" id="landing-get-started">
+          Get started
+        </button>
+      </div>
+      <div class="landing-orbit">
+        <div class="orbit-planet"></div>
+        <div class="orbit-ring orbit-ring-1"></div>
+        <div class="orbit-ring orbit-ring-2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero marketing (kept, but after landing) -->
   <section class="hero" id="start">
     <div class="container hero-inner">
       <div class="hero-text">
-        <h1>Buy &amp; Sell Social Media Accounts Safely</h1>
+        <h2>Buy &amp; Sell Social Media Accounts Safely</h2>
         <p>
           Funds are held in escrow until the buyer verifies the account.
           No more scams, just secure transfers.
         </p>
         <div class="hero-actions">
-          <a href="#create-deal" class="btn btn-primary">Start a Deal</a>
+          <button class="btn btn-primary" data-screen-jump="create-deal">
+            Start a Deal
+          </button>
           <a href="#how-it-works" class="btn btn-ghost">See how it works</a>
         </div>
         <div class="hero-badges">
@@ -41,7 +87,7 @@
         </div>
       </div>
       <div class="hero-card">
-        <h2>Live Escrow Preview</h2>
+        <h3>Live Escrow Preview</h3>
         <div class="deal-card">
           <div class="deal-header">
             <span class="deal-id">Deal #12345</span>
@@ -63,7 +109,9 @@
             <span>Amount</span>
             <strong>$750</strong>
           </div>
-          <button class="btn btn-primary full-width">Start Escrow</button>
+          <button class="btn btn-primary full-width" data-screen-jump="create-deal">
+            Start Escrow
+          </button>
         </div>
       </div>
     </div>
@@ -72,7 +120,7 @@
   <!-- How It Works -->
   <section class="section" id="how-it-works">
     <div class="container">
-      <h2 class="section-title">How Escrow Works</h2>
+      <h2 class="section-title">How Alien Safe Escrow Works</h2>
       <p class="section-subtitle">
         Simple 4‑step flow to protect both buyer and seller.
       </p>
@@ -101,7 +149,7 @@
     </div>
   </section>
 
-    <!-- Rules snapshot -->
+  <!-- Rules snapshot -->
   <section class="section section-alt" id="rules">
     <div class="container rules-grid">
       <div>
@@ -122,15 +170,26 @@
     </div>
   </section>
 
-  <!-- Auth + Dashboard wrapper -->
+  <!-- App wrapper -->
   <main class="app-main" id="app-main">
+    <!-- App navigation (demo screens) -->
+    <nav class="app-nav">
+      <div class="container app-nav-inner">
+        <button class="app-nav-link" data-screen="login">Auth</button>
+        <button class="app-nav-link" data-screen="create-deal">Create Deal</button>
+        <button class="app-nav-link" data-screen="dashboard">Dashboard</button>
+        <button class="app-nav-link" data-screen="admin-panel">Admin</button>
+      </div>
+    </nav>
 
-    <!-- Login Section -->
-    <section class="section auth-section" id="login">
+    <!-- Login Screen -->
+    <section class="section auth-section app-screen" id="login">
       <div class="container auth-grid">
         <div>
           <h2 class="section-title">Welcome back</h2>
-          <p class="section-subtitle">Login to manage your escrow deals as a buyer or seller.</p>
+          <p class="section-subtitle">
+            Login to manage your Alien Safe Escrow deals as a buyer or seller.
+          </p>
         </div>
         <form class="auth-card" id="login-form">
           <h3>Login</h3>
@@ -145,14 +204,20 @@
           <button type="submit" class="btn btn-primary full-width">Login</button>
           <p class="auth-switch">
             New here?
-            <a href="#register">Create an account</a>
+            <a href="#register" data-screen-jump="register">Create an account</a>
+          </p>
+          <p class="auth-switch">
+            Just testing?
+            <button type="button" class="link-button" id="login-guest">
+              Continue as guest (demo)
+            </button>
           </p>
         </form>
       </div>
     </section>
 
-    <!-- Register Section -->
-    <section class="section auth-section" id="register">
+    <!-- Register Screen -->
+    <section class="section auth-section app-screen" id="register">
       <div class="container auth-grid">
         <div>
           <h2 class="section-title">Create your account</h2>
@@ -177,13 +242,14 @@
           <button type="submit" class="btn btn-primary full-width">Create account</button>
           <p class="auth-switch">
             Already have an account?
-            <a href="#login">Login</a>
+            <a href="#login" data-screen-jump="login">Login</a>
           </p>
         </form>
       </div>
+    </section>
 
-        <!-- Create Escrow Deal -->
-    <section class="section" id="create-deal">
+    <!-- Create Deal Screen -->
+    <section class="section app-screen" id="create-deal">
       <div class="container">
         <h2 class="section-title">Create Escrow Deal (Demo)</h2>
         <p class="section-subtitle">
@@ -203,13 +269,11 @@
               </select>
             </label>
 
-            <!-- Seller initial listing price -->
             <label>
               <span>Seller initial price (USD)</span>
               <input type="number" name="priceInitial" min="1" required />
             </label>
 
-            <!-- Final agreed price after negotiation -->
             <label>
               <span>Final agreed price (USD)</span>
               <input type="number" name="priceAgreed" min="1" required />
@@ -310,10 +374,9 @@
         </div>
       </div>
     </section>
-    
 
-    <!-- Simple Dashboard (placeholder) -->
-    <section class="section section-alt" id="dashboard">
+    <!-- Dashboard Screen -->
+    <section class="section section-alt app-screen" id="dashboard">
       <div class="container">
         <h2 class="section-title">Your Dashboard (Demo)</h2>
         <p class="section-subtitle">
@@ -336,39 +399,42 @@
         </div>
       </div>
     </section>
-
   </main>
-  
-            <!-- Admin panel (demo) -->
-            <div class="admin-demo-box" id="admin-demo">
-              <h4>Admin Panel (Demo)</h4>
-              <p class="section-subtitle">
-                In the real app the escrow operator can force release or refund after reviewing the dispute.
-              </p>
 
-              <div class="admin-demo-status">
-                <span>Current status:</span>
-                <strong id="admin-deal-status">No deal</strong>
-              </div>
+  <!-- Admin Screen -->
+  <section class="section section-alt app-screen" id="admin-panel">
+    <div class="container">
+      <h2 class="section-title">Admin Panel (Demo)</h2>
+      <p class="section-subtitle">
+        Alien Safe Escrow operator view. In production this would control real funds and dispute resolution.
+      </p>
 
-              <div class="admin-actions">
-                <button class="btn btn-outline full-width" id="admin-release">
-                  Admin: Release funds to seller
-                </button>
-                <button class="btn btn-outline full-width" id="admin-refund">
-                  Admin: Refund buyer
-                </button>
-              </div>
+      <div class="admin-demo-box" id="admin-demo">
+        <div class="admin-demo-status">
+          <span>Current status:</span>
+          <strong id="admin-deal-status">No deal</strong>
+        </div>
 
-              <p class="deal-status-note" id="admin-note">
-                Admin actions are demo only. In production, this would be tied to real payments and evidence.
-              </p>
-            </div>
+        <div class="admin-actions">
+          <button class="btn btn-outline full-width" id="admin-release">
+            Admin: Release funds to seller
+          </button>
+          <button class="btn btn-outline full-width" id="admin-refund">
+            Admin: Refund buyer
+          </button>
+        </div>
+
+        <p class="deal-status-note" id="admin-note">
+          Admin actions are demo only. In production, this would be tied to real payments and evidence.
+        </p>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="site-footer" id="terms">
     <div class="container footer-inner">
-      <span>© 2026 EscrowSafe</span>
+      <span>© 2026 Alien Safe Escrow</span>
       <div class="footer-links">
         <a href="#terms">Terms</a>
         <a href="#disputes">Dispute policy</a>
@@ -380,4 +446,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
