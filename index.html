@@ -101,5 +101,128 @@
     </div>
   </section>
 
-  <!-- Rules snapshot -->
-  <section class="sec
+    <!-- Rules snapshot -->
+  <section class="section section-alt" id="rules">
+    <div class="container rules-grid">
+      <div>
+        <h2 class="section-title">Key Rules (MVP)</h2>
+        <ul class="rules-list">
+          <li>⏱ Inspection window is fixed at <strong>2 hours</strong>.</li>
+          <li>💰 Seller pays the escrow fee.</li>
+          <li>🤫 If buyer is silent after inspection, funds auto‑release to seller.</li>
+        </ul>
+      </div>
+      <div class="rules-note">
+        <h3>Transparency first</h3>
+        <p>
+          Both parties see the same deal status in real‑time: Awaiting Payment,
+          Payment Confirmed, Account Sent, Inspection Ongoing, Completed or Disputed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Auth + Dashboard wrapper -->
+  <main class="app-main" id="app-main">
+
+    <!-- Login Section -->
+    <section class="section auth-section" id="login">
+      <div class="container auth-grid">
+        <div>
+          <h2 class="section-title">Welcome back</h2>
+          <p class="section-subtitle">Login to manage your escrow deals as a buyer or seller.</p>
+        </div>
+        <form class="auth-card" id="login-form">
+          <h3>Login</h3>
+          <label>
+            <span>Email or Username</span>
+            <input type="text" name="login-identifier" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="login-password" required />
+          </label>
+          <button type="submit" class="btn btn-primary full-width">Login</button>
+          <p class="auth-switch">
+            New here?
+            <a href="#register">Create an account</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Register Section -->
+    <section class="section auth-section" id="register">
+      <div class="container auth-grid">
+        <div>
+          <h2 class="section-title">Create your account</h2>
+          <p class="section-subtitle">
+            No KYC for MVP. Start with a simple profile to test the escrow flow.
+          </p>
+        </div>
+        <form class="auth-card" id="register-form">
+          <h3>Register</h3>
+          <label>
+            <span>Username</span>
+            <input type="text" name="username" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" required />
+          </label>
+          <button type="submit" class="btn btn-primary full-width">Create account</button>
+          <p class="auth-switch">
+            Already have an account?
+            <a href="#login">Login</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Simple Dashboard (placeholder) -->
+    <section class="section section-alt" id="dashboard">
+      <div class="container">
+        <h2 class="section-title">Your Dashboard (Demo)</h2>
+        <p class="section-subtitle">
+          In the real app this will show active deals, completed deals, and disputes.
+        </p>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <h3>Active Deals</h3>
+            <p>No active deals yet. After login, you’ll see them here.</p>
+          </div>
+          <div class="step-card">
+            <h3>Completed Deals</h3>
+            <p>Completed escrow transactions will be listed in this section.</p>
+          </div>
+          <div class="step-card">
+            <h3>Disputes</h3>
+            <p>Disputed deals will show here for buyers, sellers, and admins.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" id="terms">
+    <div class="container footer-inner">
+      <span>© 2026 EscrowSafe</span>
+      <div class="footer-links">
+        <a href="#terms">Terms</a>
+        <a href="#disputes">Dispute policy</a>
+        <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
